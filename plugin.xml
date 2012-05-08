@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution allPopups="false" locationURI="popup:com.perforce.team.ui.PendingChangelistView?after=additions">
+         <menu id="p4actions.submenu" label="Custom Actions">
+		    <dynamic class="com.xakcop.p4actions.menu.CustomActionsMenu" id="p4actions.dynamic"/>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension point="org.eclipse.ui.commands">
+      <category id="p4actions.category" name="Custom Actions"/>
+      <command categoryId="p4actions.category" id="p4actions.command" name="P4CustomAction">
+         <commandParameter id="p4cl.id" name="id" optional="true"/>
+         <commandParameter id="p4cl.conn.addr" name="connectionAddress" optional="true"/>
+         <commandParameter id="p4cl.client.name" name="clientName" optional="true"/>
+         <commandParameter id="p4cl.client.root" name="clientRoot" optional="true"/>
+      </command>
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler class="com.xakcop.p4actions.menu.CustomActionHandler" commandId="p4actions.command"/>
+   </extension>
+</plugin>

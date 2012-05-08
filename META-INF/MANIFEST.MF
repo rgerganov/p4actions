@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: P4Actions
+Bundle-SymbolicName: com.xakcop.p4actions;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.xakcop.p4actions.Activator
+Bundle-Vendor: xakcop.com
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ com.perforce.team.core,
+ com.perforce.team.ui,
+ org.eclipse.ui.console,
+ org.eclipse.jface.text
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
