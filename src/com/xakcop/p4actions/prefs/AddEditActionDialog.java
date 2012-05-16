@@ -20,8 +20,8 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
 
     private Text nameText;
     private Text cmdText;
-    String name;
-    String command;
+    String name = "";
+    String command = "";
 
     public AddEditActionDialog(Shell parent) {
         super(parent);
@@ -47,6 +47,7 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
         GridData data = new GridData(SWT.FILL, SWT.FILL, true, false);
         data.widthHint = 200;
         nameText.setLayoutData(data);
+        nameText.setText(name);
         nameText.addModifyListener(this);
 
         Label cmdLabel = new Label(inner, SWT.WRAP);
@@ -56,8 +57,11 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
         data = new GridData(SWT.FILL, SWT.FILL, true, false);
         data.widthHint = 200;
         cmdText.setLayoutData(data);
+        cmdText.setText(command);
         cmdText.addModifyListener(this);
-        updateStatus(new Status(IStatus.ERROR, Activator.PLUGIN_ID, ""));
+        if (name.isEmpty() || command.isEmpty()) {
+            updateStatus(new Status(IStatus.ERROR, Activator.PLUGIN_ID, ""));
+        }
         return composite;
     }
 
