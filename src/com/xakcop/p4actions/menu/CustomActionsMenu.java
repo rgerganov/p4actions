@@ -1,11 +1,13 @@
 package com.xakcop.p4actions.menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.perforce.team.core.p4java.P4DefaultChangelist;
 import com.perforce.team.core.p4java.P4PendingChangelist;
 import com.perforce.team.ui.views.PendingView;
+import com.xakcop.p4actions.Activator;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -24,6 +26,7 @@ public class CustomActionsMenu extends CompoundContributionItem {
     public static final String CONN_ADDR_PARAM = "p4cl.conn.addr";
     public static final String CLIENT_NAME_PARAM = "p4cl.client.name";
     public static final String CLIENT_ROOT_PARAM = "p4cl.client.root";
+    public static final String CMD_LINE = "cmd.line";
 
     @Override
     protected IContributionItem[] getContributionItems() {
@@ -43,26 +46,33 @@ public class CustomActionsMenu extends CompoundContributionItem {
         }
         if (sel instanceof P4PendingChangelist) {
             P4PendingChangelist changeList = (P4PendingChangelist) sel;
-            CommandContributionItemParameter params = new CommandContributionItemParameter(
-                    PlatformUI.getWorkbench().getActiveWorkbenchWindow(),
-                    "p4actions.contributionItem",
-                    "p4actions.command",
-                    SWT.NONE);
-            params.parameters = extractParameters(changeList);
-            params.label = "Echo";
-            CommandContributionItem cci = new CommandContributionItem(params);
-            return new IContributionItem[] { cci };
+            return createItems(changeList);
         } else {
             return new IContributionItem[0];
         }
     }
 
-    Map<String, String> extractParameters(P4PendingChangelist changeList) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put(ID_PARAM, "" + changeList.getId());
-        params.put(CLIENT_ROOT_PARAM, changeList.getClient().getRoot());
-        params.put(CLIENT_NAME_PARAM, changeList.getClientName());
-        params.put(CONN_ADDR_PARAM, changeList.getConnection().getAddress());
-        return params;
+    CommandContributionItem[] createItems(P4PendingChangelist changeList) {
+        ArrayList<CommandContributionItem> result = new ArrayList<CommandContributionItem>();
+        Map<String, String> actions = Activator.getAllActions();
+        for (String name : actions.keySet()) {
+            String command = actions.get(name);
+            CommandContributionItemParameter itemParam = new CommandContributionItemParameter(
+                    PlatformUI.getWorkbench().getActiveWorkbenchWindow(),
+                    "p4actions.contributionItem",
+                    "p4actions.command",
+                    SWT.NONE);
+            Map<String, String> params = new HashMap<String, String>();
+            params.put(ID_PARAM, "" + changeList.getId());
+            params.put(CLIENT_ROOT_PARAM, changeList.getClient().getRoot());
+            params.put(CLIENT_NAME_PARAM, changeList.getClientName());
+            params.put(CONN_ADDR_PARAM, changeList.getConnection().getAddress());
+            params.put(CMD_LINE, command);
+            itemParam.parameters = params;
+            itemParam.label = name;
+            CommandContributionItem cci = new CommandContributionItem(itemParam);
+            result.add(cci);
+        }
+        return result.toArray(new CommandContributionItem[result.size()]);
     }
 }
