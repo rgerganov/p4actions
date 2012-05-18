@@ -32,6 +32,15 @@
    <extension point="org.eclipse.ui.handlers">
       <handler class="com.xakcop.p4actions.menu.CustomActionHandler" commandId="p4actions.command"/>
    </extension>
+   <extension point="org.eclipse.ui.console.consolePageParticipants">
+      <consolePageParticipant
+            class="com.xakcop.p4actions.console.ProcessConsolePageParticipant"
+            id="p4actions.consoleParticipant">
+         <enablement>
+            <instanceof value="com.xakcop.p4actions.console.ProcessConsole"/>
+         </enablement>
+      </consolePageParticipant>
+   </extension>   
    <extension point = "org.eclipse.ui.preferencePages">
       <page id="com.xakcop.p4actions.prefPage"
 	     class="com.xakcop.p4actions.prefs.P4ActionsPreferencePage" 
