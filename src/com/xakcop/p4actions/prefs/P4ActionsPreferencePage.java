@@ -42,8 +42,7 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
         composite.setLayout(layout);
 
         Label label = new Label(composite, SWT.WRAP);
-        label.setText("You can add custom P4 actions here. Use {cln} as a placeholder for the change list id. " +
-                "Use {cln} as a placeholder for the change list id. Use {cln} as a placeholder for the change list id.");
+        label.setText("Add custom actions that will appear in the context menu of any P4 pending changeset.");
         GridData data = new GridData(SWT.FILL, SWT.FILL, false, false);
         data.horizontalSpan = 2;
         data.widthHint = 300;

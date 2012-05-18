@@ -59,9 +59,19 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
         cmdText.setLayoutData(data);
         cmdText.setText(command);
         cmdText.addModifyListener(this);
+        cmdText.setToolTipText("Use {cln} as a placeholder for the changeset number");
         if (name.isEmpty() || command.isEmpty()) {
             updateStatus(new Status(IStatus.ERROR, Activator.PLUGIN_ID, ""));
         }
+
+        Label noteLabel = new Label(inner, SWT.WRAP);
+        noteLabel.setText("Use {cln} as a placeholder for the changeset number.\n"
+                + "Use double quotes to enclose arguments that contain spaces.");
+        data = new GridData(SWT.FILL, SWT.FILL, true, false);
+        data.verticalIndent = 10;
+        data.horizontalSpan = 2;
+        noteLabel.setLayoutData(data);
+
         return composite;
     }
 

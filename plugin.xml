@@ -5,6 +5,17 @@
       <menuContribution allPopups="false" locationURI="popup:com.perforce.team.ui.PendingChangelistView?after=additions">
          <menu id="p4actions.submenu" label="Custom Actions">
 		    <dynamic class="com.xakcop.p4actions.menu.CustomActionsMenu" id="p4actions.dynamic"/>
+			<visibleWhen>
+               <with variable="activeMenuSelection">
+                  <count value="1"/>
+                  <iterate>
+                     <adapt type="com.perforce.team.core.p4java.P4PendingChangelist"/>
+                     <not>
+                        <adapt type="com.perforce.team.core.p4java.P4DefaultChangelist"/>
+                     </not>
+                  </iterate>
+               </with>
+            </visibleWhen>
          </menu>
       </menuContribution>
    </extension>
