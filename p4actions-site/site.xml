@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.xakcop.p4actions.feature_1.0.0.201206141532.jar" id="com.xakcop.p4actions.feature" version="1.0.0.201206141532">
+      <category name="p4_category"/>
+   </feature>
+   <category-def name="p4_category" label="Perforce"/>
+</site>
