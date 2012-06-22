@@ -5,7 +5,7 @@
       version="1.0.0.qualifier"
       provider-name="xakcop.com">
 
-   <description url="http://www.example.com/description">
+   <description url="http://xakcop.com/p4actions">
       This feature allows to execute custom actions for some P4 changelist.
    </description>
 
