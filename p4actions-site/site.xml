@@ -3,7 +3,7 @@
    <description name="P4Actions Update Site" url="http://xakcop.com/p4actions/site">
       P4Actions Update Site
    </description>
-   <feature url="features/com.xakcop.p4actions.feature_1.0.0.201207051557.jar" id="com.xakcop.p4actions.feature" version="1.0.0.201207051557">
+   <feature url="features/com.xakcop.p4actions.feature_1.0.0.201207051616.jar" id="com.xakcop.p4actions.feature" version="1.0.0.201207051616">
       <category name="p4"/>
    </feature>
    <category-def name="p4" label="Perforce"/>
