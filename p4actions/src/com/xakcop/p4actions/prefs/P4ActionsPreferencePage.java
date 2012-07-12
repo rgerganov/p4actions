@@ -1,8 +1,9 @@
 package com.xakcop.p4actions.prefs;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.xakcop.p4actions.Action;
 import com.xakcop.p4actions.Activator;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -42,7 +43,7 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
         composite.setLayout(layout);
 
         Label label = new Label(composite, SWT.WRAP);
-        label.setText("Add custom actions that will appear in the context menu of any P4 pending changeset.");
+        label.setText("Custom actions that will appear in the context menu of any P4 pending changeset:");
         GridData data = new GridData(SWT.FILL, SWT.FILL, false, false);
         data.horizontalSpan = 2;
         data.widthHint = 300;
@@ -50,7 +51,6 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
 
         table = new Table(composite, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
         table.setLinesVisible(true);
-        table.setHeaderVisible(true);
         data = new GridData(SWT.FILL, SWT.FILL, true, true);
         data.widthHint = 300;
         data.heightHint = 300;
@@ -82,7 +82,7 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
         removeButton.addSelectionListener(this);
         removeButton.setEnabled(false);
 
-        String[] titles = { "Name", "Command"};
+        String[] titles = {"Name"};
         for (int i = 0; i < titles.length; i++) {
             TableColumn column = new TableColumn(table, SWT.NONE);
             column.setText(titles[i]);
@@ -120,40 +120,39 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
 
     @Override
     public boolean performOk() {
-        Map<String, String> actions = new HashMap<String, String>();
+        List<Action> actions = new LinkedList<Action>();
         TableItem[] items = table.getItems();
         for (int i = 0 ; i < items.length ; i++) {
-            //System.out.println(items[i].getText(0) + " -> " + items[i].getText(1));
-            actions.put(items[i].getText(0), items[i].getText(1));
+            Action action = (Action) items[i].getData();
+            //System.out.println(action.toString());
+            actions.add(action);
         }
         Activator.saveAllActions(actions);
         return true;
     }
 
     void initializeValues() {
-        Map<String, String> actions = Activator.getAllActions();
-        for (Map.Entry<String, String> entry : actions.entrySet()) {
+        List<Action> actions = Activator.getAllActions();
+        for (Action action : actions) {
             TableItem item = new TableItem(table, SWT.NONE);
-            item.setText(0, entry.getKey());
-            item.setText(1, entry.getValue());
+            item.setData(action);
+            item.setText(0, action.getName());
             table.getColumn(0).pack();
-            table.getColumn(1).pack();
         }
     }
 
     void onEdit() {
         Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-        AddEditActionDialog dlg = new AddEditActionDialog(shell);
         TableItem item = table.getSelection()[0];
-        dlg.name = item.getText(0);
-        dlg.command = item.getText(1);
+        Action action = (Action) item.getData();
+        AddEditActionDialog dlg = new AddEditActionDialog(shell, new Action(action));
         if (dlg.open() != Window.OK) {
             return;
         }
-        item.setText(0, dlg.name);
-        item.setText(1, dlg.command);
+        action = dlg.action;
+        item.setData(action);
+        item.setText(0, action.getName());
         table.getColumn(0).pack();
-        table.getColumn(1).pack();
     }
 
     void onRemove() {
@@ -164,14 +163,14 @@ public class P4ActionsPreferencePage extends PreferencePage implements IWorkbenc
 
     void onAdd() {
         Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-        AddEditActionDialog dlg = new AddEditActionDialog(shell);
+        AddEditActionDialog dlg = new AddEditActionDialog(shell, new Action());
         if (dlg.open() != Window.OK) {
             return;
         }
         TableItem item = new TableItem(table, SWT.NONE);
-        item.setText(0, dlg.name);
-        item.setText(1, dlg.command);
+        Action action = dlg.action;
+        item.setData(action);
+        item.setText(0, action.getName());
         table.getColumn(0).pack();
-        table.getColumn(1).pack();
     }
 }

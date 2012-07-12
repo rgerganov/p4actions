@@ -1,7 +1,7 @@
 package com.xakcop.p4actions;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -48,8 +48,8 @@ public class Activator extends AbstractUIPlugin {
         return plugin;
     }
 
-    public static Map<String, String> getAllActions() {
-        Map<String, String> result = new HashMap<String, String>();
+    public static List<Action> getAllActions() {
+        List<Action> result = new LinkedList<Action>();
         IPreferenceStore store = getDefault().getPreferenceStore();
         String allActions = store.getString(ACTIONS_PREF_KEY);
         if (allActions.isEmpty()) {
@@ -57,23 +57,16 @@ public class Activator extends AbstractUIPlugin {
         }
         String[] actions = allActions.split("\n");
         for (String action : actions) {
-            String[] nameCmd = action.split("\t");
-            if (nameCmd.length != 2) {
-                logError("Invalid properties for p4actions", null);
-                continue;
-            }
-            result.put(nameCmd[0], nameCmd[1]);
+            result.add(Action.parseAction(action));
         }
         return result;
     }
 
-    public static void saveAllActions(Map<String, String> actions) {
+    public static void saveAllActions(List<Action> actions) {
         IPreferenceStore store = getDefault().getPreferenceStore();
         StringBuilder allActions = new StringBuilder();
-        for (Map.Entry<String, String> entry : actions.entrySet()) {
-            allActions.append(entry.getKey());
-            allActions.append("\t");
-            allActions.append(entry.getValue());
+        for (Action action : actions) {
+            allActions.append(action.toString());
             allActions.append("\n");
         }
         store.setValue(ACTIONS_PREF_KEY, allActions.toString());

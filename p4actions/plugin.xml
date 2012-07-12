@@ -26,7 +26,7 @@
          <commandParameter id="p4cl.conn.addr" name="connectionAddress" optional="true"/>
          <commandParameter id="p4cl.client.name" name="clientName" optional="true"/>
          <commandParameter id="p4cl.client.root" name="clientRoot" optional="true"/>
-         <commandParameter id="cmd.line" name="cmdLine" optional="true"/>
+         <commandParameter id="p4cl.action" name="action" optional="true"/>
       </command>
    </extension>
    <extension point="org.eclipse.ui.handlers">

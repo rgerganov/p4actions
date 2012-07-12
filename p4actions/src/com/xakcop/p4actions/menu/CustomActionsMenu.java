@@ -2,11 +2,13 @@ package com.xakcop.p4actions.menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.perforce.team.core.p4java.P4DefaultChangelist;
 import com.perforce.team.core.p4java.P4PendingChangelist;
 import com.perforce.team.ui.views.PendingView;
+import com.xakcop.p4actions.Action;
 import com.xakcop.p4actions.Activator;
 
 import org.eclipse.jface.action.IContributionItem;
@@ -26,7 +28,7 @@ public class CustomActionsMenu extends CompoundContributionItem {
     public static final String CONN_ADDR_PARAM = "p4cl.conn.addr";
     public static final String CLIENT_NAME_PARAM = "p4cl.client.name";
     public static final String CLIENT_ROOT_PARAM = "p4cl.client.root";
-    public static final String CMD_LINE = "cmd.line";
+    public static final String ACTION = "p4cl.action";
 
     @Override
     protected IContributionItem[] getContributionItems() {
@@ -54,9 +56,8 @@ public class CustomActionsMenu extends CompoundContributionItem {
 
     CommandContributionItem[] createItems(P4PendingChangelist changeList) {
         ArrayList<CommandContributionItem> result = new ArrayList<CommandContributionItem>();
-        Map<String, String> actions = Activator.getAllActions();
-        for (String name : actions.keySet()) {
-            String command = actions.get(name);
+        List<Action> actions = Activator.getAllActions();
+        for (Action action : actions) {
             CommandContributionItemParameter itemParam = new CommandContributionItemParameter(
                     PlatformUI.getWorkbench().getActiveWorkbenchWindow(),
                     "p4actions.contributionItem",
@@ -67,9 +68,9 @@ public class CustomActionsMenu extends CompoundContributionItem {
             params.put(CLIENT_ROOT_PARAM, changeList.getClient().getRoot());
             params.put(CLIENT_NAME_PARAM, changeList.getClientName());
             params.put(CONN_ADDR_PARAM, changeList.getConnection().getAddress());
-            params.put(CMD_LINE, command);
+            params.put(ACTION, action.toString());
             itemParam.parameters = params;
-            itemParam.label = name;
+            itemParam.label = action.getName();
             CommandContributionItem cci = new CommandContributionItem(itemParam);
             result.add(cci);
         }

@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import com.xakcop.p4actions.Action;
 import com.xakcop.p4actions.Activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -43,7 +44,9 @@ public class ProcessConsole extends IOConsole {
         addPatternMatchListener(new HttpLinkPatternMatcher());
     }
 
-    public void startProcess(List<String> command, String workingDir, String p4port) {
+    public void startProcess(Action action, String workingDir, String p4port) {
+        List<String> command = action.parseArguments();
+        command.add(0, action.getExecutable());
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         // http://kb.perforce.com/article/44/symbolic-links-and-workspace-roots
         processBuilder.environment().put("PWD", workingDir);
