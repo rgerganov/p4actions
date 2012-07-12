@@ -1,5 +1,7 @@
 package com.xakcop.p4actions.prefs;
 
+import java.io.File;
+
 import com.xakcop.p4actions.Action;
 import com.xakcop.p4actions.Activator;
 
@@ -9,16 +11,19 @@ import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class AddEditActionDialog extends StatusDialog implements ModifyListener {
+public class AddEditActionDialog extends StatusDialog implements ModifyListener, SelectionListener {
 
     private Text nameText;
     private Text cmdText;
@@ -69,6 +74,7 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
 
         Button btn = new Button(inner, SWT.NONE);
         btn.setText("Browse...");
+        btn.addSelectionListener(this);
 
         Label argLabel = new Label(inner, SWT.WRAP);
         argLabel.setText("Arguments:");
@@ -110,5 +116,23 @@ public class AddEditActionDialog extends StatusDialog implements ModifyListener 
             status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Invalid executable");
         }
         updateStatus(status);
+    }
+
+    @Override
+    public void widgetSelected(SelectionEvent e) {
+        File f = new File(cmdText.getText());
+        FileDialog dialog = new FileDialog(getShell(), SWT.OPEN | SWT.SHEET);
+        if (f.exists()) {
+            dialog.setFileName(f.getPath());
+        }
+        String file = dialog.open();
+        if (file != null) {
+            cmdText.setText(file);
+        }
+    }
+
+    @Override
+    public void widgetDefaultSelected(SelectionEvent e) {
+        widgetSelected(e);
     }
 }
