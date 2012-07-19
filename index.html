@@ -1,71 +1,66 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset='utf-8' />
+<meta name="description" content="p4actions : Eclipse plug-in that adds custom actions to pending changelists" />
+<title>p4actions</title>
+<style>
+  body {
+    font-family: 'Georgia', 'Arial', 'Helvetica';
+    background-color: white;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: black;
+  }
+  h1 {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: gray;
+    margin-bottom: 1px;
+  }
+  h2 {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: gray;
+  }
+  a {
+    color: #2060C0;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="p4actions : Eclipse plug-in that adds custom actions to pending changelists" />
+<body>
+<h1>p4actions</h1>
+<small> <a href="https://github.com/rgerganov/p4actions">View on GitHub</a> </small>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<p>p4actions is Eclipse plug-in that adds custom actions to pending Perforce changelists. You can execute any script or command from the context menu of the changelist without leaving the IDE. The output of the executed action is displayed in the Console view.</p>
 
-    <title>p4actions</title>
-  </head>
+<h2>Installation</h2>
+<ol>
+<li>Install <a href="http://www.perforce.com/product/components/eclipse_plugin">P4Eclipse</a> from the update site that corresponds to your version of Eclipse</li>
+<li>Install p4actions from this update site: <code>http://xakcop.com/p4actions/site</code> (should work for all versions of Eclipse)</li>
+</ol>
+<h2>Usage</h2>
+<p>TODO</p>
+<p><img src="images/prefs.png" alt="Preferences"></p>
+<p><img src="images/context-menu.png" alt="context menu"></p>
+<p><img src="images/console.png" alt="console"></p>
+<h2>Known issues</h2>
+<ul>
+<li>If you try to execute an action that requires input from stdin, it won't work. You should pass all data as command line arguments.</li>
+<li>You can't execute more than one action at once.</li>
+</ul>
 
-  <body>
+<h2>Support or Contact</h2>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/rgerganov/p4actions">View on GitHub</a>
+<p>Feel free to send me any questions, suggestions or feedback at my email address: <a href="mailto:rgerganov@gmail.com">rgerganov@gmail.com</a></p>
 
-          <h1 id="project_title">p4actions</h1>
-          <h2 id="project_tagline">Eclipse plug-in that adds custom actions to pending changelists</h2>
-
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Installation</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Usage</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-<img src="images/prefs.png" alt="Preferences">
-<img src="images/context-menu.png" alt="context menu">
-<img src="images/console.png" alt="console">
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Copyright &copy; 2012 <a href="https://github.com/rgerganov">rgerganov</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+<div style="text-align: center">
+  Copyright &copy; 2012 by Radoslav Gerganov
+</div>
+</body>
 </html>
