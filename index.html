@@ -8,9 +8,11 @@
   body {
     font-family: 'Georgia', 'Arial', 'Helvetica';
     background-color: white;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
     color: black;
+    text-align: justify;
   }
   h1 {
     border-width: 0 0 1px 0;
@@ -45,9 +47,12 @@
 <li>Install p4actions from this update site: <code>http://xakcop.com/p4actions/site</code> (should work for all versions of Eclipse)</li>
 </ol>
 <h2>Usage</h2>
-<p>TODO</p>
+<p>Let's say that we have a script that sends a changelist for review and we want to add an action for this. Open the <code>Preferences</code> and navigate to <code>Team->Perforce->Custom Actions</code>. Click the <code>Add</code> button and you will get the following dialog:</p>
 <p><img src="images/prefs.png" alt="Preferences"></p>
+<p>Choose name for the new action and select an executable. In this concrete example we are using the <code>post-review</code> script and we specify <code>{cln}</code> as argument which is the placeholder for the selected changelist number.</p>
+<p>Now when you right-click on a pending changelist in the <code>'P4 Pending Changelists'</code> view, you will find the new action in the <code>'Custom Actions'</code> submenu:
 <p><img src="images/context-menu.png" alt="context menu"></p>
+<p>The output of the executed command is displayed in the <code>Console</code> view. If the output contains hyperlinks, you can click them to open:</p>
 <p><img src="images/console.png" alt="console"></p>
 <h2>Known issues</h2>
 <ul>
